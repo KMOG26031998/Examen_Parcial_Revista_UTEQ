@@ -1,13 +1,13 @@
-package com.example.examenparcial;
+package com.example.examenparcial.Interfaz;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.examenparcial.R;
 
 public class MainActivity extends AppCompatActivity {
 ImageView img;

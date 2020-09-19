@@ -1,6 +1,4 @@
-package com.example.examenparcial;
-
-import android.media.audiofx.AudioEffect;
+package com.example.examenparcial.Secciones;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,16 +7,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Revistas {
-
+    private String journalId;
     private String description;
     private String portada;
     private  String name;
     public Revistas() {
     }
-    public Revistas(String description,String portada,String name){
+    public Revistas(String description,String portada,String name,String journalId){
         this.description= description;
         this.portada=portada;
         this.name=name;
+        this.journalId=journalId;
+    }
+    public String getjournalId() {
+        return journalId;
+    }
+
+    public void setjournalId(String journalId) {
+        this.journalId = journalId;
     }
 
     public String getName() {
@@ -40,6 +46,7 @@ public class Revistas {
         this.portada= Portada;
     }
     public Revistas(JSONObject item) throws JSONException {
+        journalId  = item.getString("journal_id").toString();
         name= item.getString("name");
         description= item.getString("description");
         portada= item.getString("portada");

@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity3"></activity>
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Interfaz.MainActivity3"></activity>
+        <activity android:name=".Interfaz.MainActivity2" />
+        <activity android:name=".Interfaz.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

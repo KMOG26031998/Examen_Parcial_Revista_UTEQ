@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="290dp">
+    android:layout_height="200dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             <ImageView
                 android:id="@+id/ivusuario"
                 android:layout_width="147dp"
-                android:layout_height="225dp"
+                android:layout_height="180dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
@@ -45,6 +45,30 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtissue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtvolume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtnumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="TextView" />
+
+                <TextView
                     android:id="@+id/txtyear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,9 +77,25 @@
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/txtDescripcion"
+                    android:id="@+id/txtdate"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txttitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/txtdoi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
                     android:text="TextView" />
