@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.examenparcial.RecyclerViewAdaptador.RecyclerViewAdaptador;
+import com.example.examenparcial.WebServices.Asynchtask;
+import com.example.examenparcial.WebServices.WebService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -34,7 +37,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity implements Asynchtask {
     private RecyclerView recyclerView;
     private RecyclerViewAdaptador recyclerViewAdapter;
     @Override
@@ -46,37 +49,14 @@ public class MainActivity2 extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         handleSSLHandshake();
         gsonrevistas();
+    }
+    ArrayList<Revistas> Revistlist;
 
-    }
-    public List<Revistas> obtenerevista(){
-        List<Revistas> revistas = new ArrayList<>();
-        return revistas;
-    }
     private void gsonrevistas() {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://revistas.uteq.edu.ec/ws/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        Servidor svr = retrofit.create(Servidor.class);
-        Call<List<Revistas>> call = svr.getRevistas();
-        call.enqueue(new Callback<List<Revistas>>() {
-            @Override
-            public void onResponse(Call<List<Revistas>> call, Response<List<Revistas>> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-                List<Revistas> postRevistas = response.body();
-                recyclerViewAdapter = new RecyclerViewAdaptador(postRevistas);
-                recyclerView.setAdapter(recyclerViewAdapter);
-            }
-            @Override
-            public void onFailure(Call<List<Revistas>> call, Throwable t) {
-                Log.e("KR","aqui");
-            }
-        });
+        String url ="https://revistas.uteq.edu.ec/ws/journals.php";
+        Map<String, String> datos = new HashMap<String, String>();
+        WebService ws= new WebService(url, datos, MainActivity2.this, MainActivity2.this);
+        ws.execute("GET");
     }
     public static void handleSSLHandshake() {
         try {
@@ -106,4 +86,18 @@ public class MainActivity2 extends AppCompatActivity {
         } catch (Exception ignored) {
         }
     }
+    public void processFinish(String result) throws JSONException {
+        try {
+            JSONArray jsonlista= new JSONArray(result);
+            Revistlist = Revistas.JsonObjectsBuild(jsonlista);
+
+            recyclerViewAdapter= new RecyclerViewAdaptador(getApplicationContext(), Revistlist);
+            recyclerView.setAdapter(recyclerViewAdapter);
+
+        }catch (JSONException e)
+        {
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
+        }
+    }
+
 }

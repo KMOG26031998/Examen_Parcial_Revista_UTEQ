@@ -44,5 +44,11 @@ public class Revistas {
         description= item.getString("description");
         portada= item.getString("portada");
     }
-
+    public static ArrayList<Revistas> JsonObjectsBuild(JSONArray datos) throws JSONException {
+        ArrayList<Revistas> revistasList = new ArrayList<>();
+        for (int i = 0; i < datos.length(); i++) {
+            revistasList.add(new Revistas(datos.getJSONObject(i)));
+        }
+        return revistasList;
+    }
 }
