@@ -61,7 +61,6 @@ public class MainActivity3 extends AppCompatActivity{
 
     private void gsoncategoria(String sectionid){
         final String urllg="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+sectionid;
-        sectionid=sectionid;
         intent= new Intent(MainActivity3.this, com.example.examenparcial.Secciones.Edicion.class);
         try {
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urllg, new Response.Listener<String>() {

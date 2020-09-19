@@ -17,7 +17,7 @@
         app:srcCompat="@android:color/holo_green_dark" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvusuarios"
+        android:id="@+id/rv_edic"
         android:layout_width="match_parent"
         android:layout_height="670dp"
         android:layout_alignParentStart="true"
@@ -31,4 +31,5 @@
         android:layout_marginBottom="1dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 </RelativeLayout>

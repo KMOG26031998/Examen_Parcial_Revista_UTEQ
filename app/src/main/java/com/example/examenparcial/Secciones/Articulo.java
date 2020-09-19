@@ -85,10 +85,10 @@ import java.util.ArrayList;
             cover= item.getString("cover");
             doi= item.getString("doi");
         }
-        public static ArrayList<com.example.examenparcial.Secciones.Articulo> JsonObjectsBuild(JSONArray datos) throws JSONException {
+        public static ArrayList<Articulo> JsonObjectsBuild(JSONArray datos) throws JSONException {
             ArrayList<com.example.examenparcial.Secciones.Articulo> articuloList = new ArrayList<>();
             for (int i = 0; i < datos.length(); i++) {
-                articuloList.add(new com.example.examenparcial.Secciones.Articulo(datos.getJSONObject(i)));
+                articuloList.add(new Articulo(datos.getJSONObject(i)));
             }
             return articuloList;
         }

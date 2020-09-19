@@ -5,8 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.examenparcial.R;
 import com.example.examenparcial.RecyclerViewAdaptador.RecyclerViewAdaptadorArticulo;
 import com.example.examenparcial.Secciones.Articulo;
@@ -32,24 +39,75 @@ import javax.net.ssl.X509TrustManager;
 public class MainActivity4 extends AppCompatActivity implements Asynchtask {
     private RecyclerView recyclerView;
     private RecyclerViewAdaptadorArticulo recyclerViewAdapter;
+    ArrayList<Articulo> ItemList;
     String id;
+    LinearLayoutManager layoutManager;
+    private RequestQueue queue;
+    /*
+    ArrayList<com.example.revistasuteq.modelo.Articulo> subItemList; -_- que paso
+    ArrayList<com.example.revistasuteq.modelo.Articulo> subItemListAux;*/
+    Bundle b;
+    String submiss;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
-        Bundle b = this.getIntent().getExtras();
-        recyclerView =(RecyclerView)findViewById(R.id.rvusuarios);
+        setContentView(R.layout.activity_main4);
+        b = this.getIntent().getExtras();
+        recyclerView =(RecyclerView)findViewById(R.id.rv_edic);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         id=b.getString("id");
         handleSSLHandshake();
+        gsonrevistas(id);
+        /*
         gsonrevistas();
+
+        queue= Volley.newRequestQueue(Articulo.this);
+        rvItem =  findViewById(R.id.rv_item);
+
+        rvItem.setLayoutManager(new LinearLayoutManager(Articulo.this));
+        layoutManager= new LinearLayoutManager(Articulo.this);
+        bundle=this.getIntent().getExtras();
+        handleSSLHandshake();
+        submiss =bundle.getString("submissID");
+        LgVolley(bundle.getString("issueID"));*/
     }
     ArrayList<Articulo> Articulolist;
-    private void gsonrevistas() {
+    private void gsonrevistas(String idIs) {
         String url ="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+id;
         Map<String, String> datos = new HashMap<String, String>();
         WebService ws= new WebService(url, datos, MainActivity4.this, MainActivity4.this);
         ws.execute("GET");
+/*
+        final String urllg="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+idIs;
+        try {
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, urllg, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray jsonlista= new JSONArray(response);
+                        subItemListAux= com.example.revistasuteq.modelo.Articulo.getArticulo(jsonlista,submiss);
+                        AdaptadorArticulo adaptadorArticulo= new AdaptadorArticulo(Articulo.this,subItemListAux);
+                        rvItem.setAdapter(adaptadorArticulo);
+
+                    }catch (JSONException e)
+                    {
+                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error)
+                {
+                    Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
+                }
+            });
+            queue.add(stringRequest);
+        }
+        catch (Exception EX){
+            String s;
+            s=EX.getMessage();
+        }*/
     }
     public static void handleSSLHandshake() {
         try {
@@ -79,7 +137,27 @@ public class MainActivity4 extends AppCompatActivity implements Asynchtask {
         } catch (Exception ignored) {
         }
     }
+//dele X2  retorna al inicio- no deberia ser el mainactivity 3, xq luego del 2 va el 3 y despues el 4
+    @Override
     public void processFinish(String result) throws JSONException {
+        try {
+            JSONArray jsonlista= new JSONArray(result);
+            Articulolist = Articulo.JsonObjectsBuild(jsonlista);
+            recyclerViewAdapter= new RecyclerViewAdaptadorArticulo(getApplicationContext(), Articulolist);
+            recyclerViewAdapter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"Seleccionó la revista : " + Articulolist.get(recyclerView.getChildAdapterPosition(v)).gettitle(),Toast.LENGTH_SHORT).show();
+                }
+            });
+            recyclerView.setAdapter(recyclerViewAdapter);
+
+        }catch (JSONException e)
+        {
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
+        }
+    }
+ /*   public void processFinish(String result) throws JSONException {
         try {
             JSONArray jsonlista= new JSONArray(result);
             Articulolist = Articulo.JsonObjectsBuild(jsonlista);
@@ -90,5 +168,5 @@ public class MainActivity4 extends AppCompatActivity implements Asynchtask {
         {
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
         }
-    }
+    }*/
 }
