@@ -15,7 +15,20 @@ import com.example.examenparcial.WebServices.Asynchtask;
 
 import java.util.List;
 
-public class RecyclerViewAdaptadorArticulo extends RecyclerView.Adapter<RecyclerViewAdaptadorArticulo.ViewHolder>{
+public class RecyclerViewAdaptadorArticulo extends RecyclerView.Adapter<RecyclerViewAdaptadorArticulo.ViewHolder>implements View.OnClickListener{
+
+    private View.OnClickListener onClickListener;
+    @Override
+    public void onClick(View v) {
+        if (onClickListener!=null){
+            onClickListener.onClick(v);
+        }
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListenerp){
+        this.onClickListener=onClickListenerp;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView issue_id, volume,number,year, date_published,title, doi;
         ImageView imagenarticulo;
@@ -44,6 +57,7 @@ public class RecyclerViewAdaptadorArticulo extends RecyclerView.Adapter<Recycler
         LayoutInflater inflater = LayoutInflater.from(articulocon);
         View view = inflater.inflate(R.layout.item_usuario,parent,false);
         RecyclerViewAdaptadorArticulo.ViewHolder viewHolder= new RecyclerViewAdaptadorArticulo.ViewHolder(view);
+        view.setOnClickListener(this);
         return viewHolder;
     }
 

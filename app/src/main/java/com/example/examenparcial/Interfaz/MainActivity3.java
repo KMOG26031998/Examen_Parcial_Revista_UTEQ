@@ -52,7 +52,7 @@ public class MainActivity3 extends AppCompatActivity{
         queue= Volley.newRequestQueue(MainActivity3.this);
         bundle=this.getIntent().getExtras();
         layoutManager= new LinearLayoutManager(MainActivity3.this);
-        id=bundle.getString("sectionid");
+        id=bundle.getString("id");
         handleSSLHandshake();
         gsoncategoria(id);
     }
@@ -60,7 +60,7 @@ public class MainActivity3 extends AppCompatActivity{
     List<CategoriasCarreras> categoriaList;
 
     private void gsoncategoria(String sectionid){
-        final String urllg="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+sectionid;
+        final String urllg="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+sectionid;
         sectionid=sectionid;
         intent= new Intent(MainActivity3.this, com.example.examenparcial.Secciones.Edicion.class);
         try {

@@ -1,20 +1,15 @@
 package com.example.examenparcial.RecyclerViewAdaptador;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.examenparcial.R;
 import com.example.examenparcial.Secciones.Articulo;
 import com.example.examenparcial.Secciones.Edicion;
-
 import java.util.List;
-
 public class RecyclerViewAdaptadorSub  extends RecyclerView.Adapter<RecyclerViewAdaptadorSub.SubViewHolder> implements View.OnClickListener{
 
     private List<Edicion> subList;

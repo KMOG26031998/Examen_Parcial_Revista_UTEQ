@@ -14,7 +14,20 @@ import com.example.examenparcial.Secciones.Revistas;
 
 import java.util.List;
 
-public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdaptador.ViewHolder>{
+public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdaptador.ViewHolder> implements View.OnClickListener{
+
+    private View.OnClickListener onClickListener;
+    @Override
+    public void onClick(View v) {
+        if (onClickListener!=null){
+            onClickListener.onClick(v);
+        }
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListenerp){
+        this.onClickListener=onClickListenerp;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
        private TextView nombre,descripcion;
         ImageView imagenrevista;
@@ -39,6 +52,7 @@ public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdap
             LayoutInflater inflater = LayoutInflater.from(revistacon);
             View view = inflater.inflate(R.layout.item_usuario,parent,false);
                  ViewHolder viewHolder= new ViewHolder(view);
+        view.setOnClickListener(this);
             return viewHolder;
      }
 

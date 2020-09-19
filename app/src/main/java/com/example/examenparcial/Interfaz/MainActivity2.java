@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.examenparcial.R;
 import com.example.examenparcial.RecyclerViewAdaptador.RecyclerViewAdaptador;
+import com.example.examenparcial.RecyclerViewAdaptador.RecyclerViewAdaptadorArticulo;
+import com.example.examenparcial.Secciones.Articulo;
 import com.example.examenparcial.Secciones.Revistas;
 import com.example.examenparcial.WebServices.Asynchtask;
 import com.example.examenparcial.WebServices.WebService;
@@ -32,17 +36,17 @@ import javax.net.ssl.X509TrustManager;
 public class MainActivity2 extends AppCompatActivity implements Asynchtask {
     private RecyclerView recyclerView;
     private RecyclerViewAdaptador recyclerViewAdapter;
+    private  Bundle bundle;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Bundle bundle = this.getIntent().getExtras();
+        bundle = this.getIntent().getExtras();
         recyclerView =(RecyclerView)findViewById(R.id.rvusuarios);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         handleSSLHandshake();
         gsonrevistas();
-       // construirRecycler();
-
     }
     ArrayList<Revistas> Revistlist;
     private void gsonrevistas() {
@@ -81,10 +85,22 @@ public class MainActivity2 extends AppCompatActivity implements Asynchtask {
     }
     public void processFinish(String result) throws JSONException {
         try {
+            intent= new Intent(MainActivity2.this, MainActivity4.class);
+            bundle = new Bundle();
             JSONArray jsonlista= new JSONArray(result);
             Revistlist = Revistas.JsonObjectsBuild(jsonlista);
             recyclerViewAdapter= new RecyclerViewAdaptador(getApplicationContext(), Revistlist);
+            recyclerViewAdapter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"Seleccionó la revista : " + Revistlist.get(recyclerView.getChildAdapterPosition(v)).getName(),Toast.LENGTH_SHORT).show();
+                    bundle.putString("id",Revistlist.get(recyclerView.getChildAdapterPosition(v)).getjournalId());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
             recyclerView.setAdapter(recyclerViewAdapter);
+
 
         }catch (JSONException e)
         {
@@ -92,21 +108,4 @@ public class MainActivity2 extends AppCompatActivity implements Asynchtask {
         }
     }
 
-   /* private void construirRecycler() {
-        Revistlist=new ArrayList<>();
-
-        RecyclerViewAdaptador adapter=new RecyclerViewAdaptador(Revistlist);
-
-        adapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),
-                        "Selección: "+Revistlist.get
-                                (recyclerView.getChildAdapterPosition(view))
-                                .getPortada(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
-    }*/
-}
+ }

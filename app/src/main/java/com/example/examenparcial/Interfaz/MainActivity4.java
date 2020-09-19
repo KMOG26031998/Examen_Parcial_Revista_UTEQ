@@ -32,6 +32,7 @@ import javax.net.ssl.X509TrustManager;
 public class MainActivity4 extends AppCompatActivity implements Asynchtask {
     private RecyclerView recyclerView;
     private RecyclerViewAdaptadorArticulo recyclerViewAdapter;
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +40,13 @@ public class MainActivity4 extends AppCompatActivity implements Asynchtask {
         Bundle b = this.getIntent().getExtras();
         recyclerView =(RecyclerView)findViewById(R.id.rvusuarios);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        id=b.getString("id");
         handleSSLHandshake();
         gsonrevistas();
     }
     ArrayList<Articulo> Articulolist;
     private void gsonrevistas() {
-        String url ="https://revistas.uteq.edu.ec/ws/issues.php?j_id=2";
+        String url ="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+id;
         Map<String, String> datos = new HashMap<String, String>();
         WebService ws= new WebService(url, datos, MainActivity4.this, MainActivity4.this);
         ws.execute("GET");
