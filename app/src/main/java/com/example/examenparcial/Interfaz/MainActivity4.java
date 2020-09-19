@@ -44,7 +44,7 @@ public class MainActivity4 extends AppCompatActivity implements Asynchtask {
     LinearLayoutManager layoutManager;
     private RequestQueue queue;
     /*
-    ArrayList<com.example.revistasuteq.modelo.Articulo> subItemList; -_- que paso
+    ArrayList<com.example.revistasuteq.modelo.Articulo> subItemList;
     ArrayList<com.example.revistasuteq.modelo.Articulo> subItemListAux;*/
     Bundle b;
     String submiss;
@@ -137,7 +137,7 @@ public class MainActivity4 extends AppCompatActivity implements Asynchtask {
         } catch (Exception ignored) {
         }
     }
-//dele X2  retorna al inicio- no deberia ser el mainactivity 3, xq luego del 2 va el 3 y despues el 4
+
     @Override
     public void processFinish(String result) throws JSONException {
         try {

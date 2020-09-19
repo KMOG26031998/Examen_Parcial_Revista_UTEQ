@@ -51,7 +51,6 @@ public class RecyclerViewAdaptadorArticulo extends RecyclerView.Adapter<Recycler
         articulocon=context;
         articuloListist = articuloList;
     }
-
     @Override
     public RecyclerViewAdaptadorArticulo.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(articulocon);
