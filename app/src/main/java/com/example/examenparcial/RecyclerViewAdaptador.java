@@ -1,24 +1,24 @@
 package com.example.examenparcial;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdaptador.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder{
-
-       private TextView id,nombre,descripcion;
+       private TextView nombre,descripcion;
         ImageView imagenrevista;
-
         public ViewHolder(View itemView) {
             super(itemView);
-            id=(TextView)itemView.findViewById(R.id.txtId);
             nombre =(TextView)itemView.findViewById(R.id.txtNombre);
             descripcion =(TextView)itemView.findViewById(R.id.txtDescripcion);
             imagenrevista = itemView.findViewById(R.id.ivusuario);
@@ -38,7 +38,6 @@ public class RecyclerViewAdaptador extends RecyclerView.Adapter<RecyclerViewAdap
     }
     @Override
     public void onBindViewHolder(RecyclerViewAdaptador.ViewHolder holder, int position) {
-        holder.id.setText((revistasListist.get(position).getId()));
         holder.nombre.setText((revistasListist.get(position).getName()));
         holder.descripcion.setText((revistasListist.get(position).getDescription()));
         option.load(revistasListist.get(position).getPortada()).centerCrop().into(holder.imagenrevista);

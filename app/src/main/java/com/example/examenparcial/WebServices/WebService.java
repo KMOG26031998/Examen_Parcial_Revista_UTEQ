@@ -4,45 +4,23 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
+import com.example.examenparcial.WebServices.HttpRequest.HttpRequestException;
 import org.json.JSONException;
-
 import java.util.Map;
-
-
 public class WebService extends AsyncTask<String, Long, String> {
-
-    //Variable con los datos para pasar al web service
     private Map<String, String> datos;
-    //Url del servicio web
     private String url= "http://192.168.1.46/codigobarras/";
-
-    //Actividad para mostrar el cuadro de progreso
     private Context actividad;
-
-    //Resultado
     private String xml=null;
-
-    //Clase a la cual se le retorna los datos dle ws
     private Asynchtask callback=null;
-
     public Asynchtask getCallback() {
         return callback;
     }
     public void setCallback(Asynchtask callback) {
         this.callback = callback;
     }
-
     ProgressDialog progDailog;
-
-    /**
-     * Crea una estancia de la clase webService para hacer consultas a ws
-     * @param urlWebService Url del servicio web
-     * @param data Datos a enviar del servicios web
-     * @param activity Actividad de donde se llama el servicio web, para mostrar el cuadro de "Cargando"
-     * @param callback CLase a la que se le retornara los datos del servicio web
-     */
-    public WebService(String urlWebService, Map<String, String> data, Context activity, Asynchtask callback) {
+    public  WebService(String urlWebService,Map<String, String> data, Context activity, Asynchtask callback) {
         this.url=urlWebService;
         this.datos=data;
         this.actividad=activity;
@@ -51,7 +29,6 @@ public class WebService extends AsyncTask<String, Long, String> {
     public WebService() {
         // TODO Auto-generated constructor stub
     }
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -65,20 +42,15 @@ public class WebService extends AsyncTask<String, Long, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-
             HttpRequest h=new HttpRequest(this.url,params[0]);
             for (int k=1;k< params.length;k+=2)
             {
                 h.header(params[k],params[k+1]);
             }
-
             String r=  h.form(this.datos).body();
-
             return r;
-
-        } catch (HttpRequest.HttpRequestException exception) {
+        } catch (HttpRequestException exception) {
             Log.e("doInBackground", exception.getMessage());
-
             return "Error HttpRequestException";
         } catch (Exception e) {
             Log.e("doInBackground", e.getMessage());
